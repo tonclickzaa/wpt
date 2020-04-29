@@ -102,18 +102,30 @@ jobs:
       packages: virtualenv
   - template: tools/ci/azure/install_fonts.yml
   - template: tools/ci/azure/install_certs.yml
-  - template: tools/ci/azure/install_chrome.yml
-  - template: tools/ci/azure/install_firefox.yml
   - template: tools/ci/azure/install_safari.yml
+  - script: defaults find DidMigrateWebDriverAllowRemoteAutomation || true
+    displayName: 'DidMigrateWebDriverAllowRemoteAutomation'
+  - script: ls -l ~/Library || true
+    displayName: 'ls Library'
+  - script: ls -l ~/Library/WebDriver || true
+    displayName: 'ls Library/WebDriver'
+  - script: find ~/ -name com.apple.SafariTechnologyPreview.plist || true
+    displayName: 'find com.apple.SafariTechnologyPreview.plist'
+  - script: cat ~/Library/Preferences/com.apple.SafariTechnologyPreview.plist || true
+    displayName: 'cat the other one'
+  - script: cat ~/Library/WebDriver/com.apple.SafariTechnologyPreview.plist || true
+    displayName: 'com.apple.SafariTechnologyPreview.plist'
   - template: tools/ci/azure/update_hosts.yml
   - template: tools/ci/azure/update_manifest.yml
-  - script: ./wpt run --yes --no-manifest-update --manifest MANIFEST.json --metadata infrastructure/metadata/ --log-mach - --log-mach-level info --channel dev chrome infrastructure/
-    displayName: 'Run tests (Chrome Dev)'
-  - script: ./wpt run --yes --no-manifest-update --manifest MANIFEST.json --metadata infrastructure/metadata/ --log-mach - --log-mach-level info --channel nightly firefox infrastructure/
-    displayName: 'Run tests (Firefox Nightly)'
-  - script: ./wpt run --yes --no-manifest-update --manifest MANIFEST.json --metadata infrastructure/metadata/ --log-mach - --log-mach-level info --channel preview safari infrastructure/
+  - script: ./wpt run --yes --no-manifest-update --manifest MANIFEST.json --metadata infrastructure/metadata/ --log-mach - --log-mach-level info --channel preview safari infrastructure/ || true
     displayName: 'Run tests (Safari Technology Preview)'
-  - template: tools/ci/azure/publish_logs.yml
+  - script: sudo sysdiagnose -f $(Build.ArtifactStagingDirectory)/ -b -u
+    displayName: 'Run sysdiagnose'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish results'
+    inputs:
+      artifactName: 'infrastructure'
+    condition: always()
 
 - job: tools_unittest_mac
   displayName: 'tools/ unittests: macOS'
