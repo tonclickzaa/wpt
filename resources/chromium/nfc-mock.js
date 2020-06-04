@@ -319,9 +319,6 @@ var WebNFCTest = (() => {
       this.reading_messages_.push(message);
       // Ignores reading if NFC operation is suspended.
       if(this.operations_suspended_) return;
-      // Ignores reading if NDEFWriteOptions.ignoreRead is true.
-      if (this.pending_write_options_ && this.pending_write_options_.ignoreRead)
-        return;
       // Triggers onWatch if the new message matches existing watchers.
       for (let watcher of this.watchers_) {
         if (matchesWatchOptions(message, watcher.options)) {
