@@ -19,7 +19,7 @@ async_test(t => {
   });
   document.addEventListener("documentWriteDone", t.step_func_done(() => {
     assert_true(onLoadWasCalled);
-    assert_equals(iframe.contentDocument.body.textContent, "Initial body contents\n");
+    assert_equals(iframe.contentDocument.body.textContent, "New body contents");
   }));
 
   iframe.src = "module-tla-delayed-iframe.html";

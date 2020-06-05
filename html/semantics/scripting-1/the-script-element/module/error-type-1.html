@@ -9,6 +9,7 @@
     window.log = [];
 
     window.addEventListener("error", ev => log.push(ev.error));
+    window.addEventListener("onunhandledrejection", unreachable);
 
     const test_load = async_test(
         "network error has higher priority than parse error");
@@ -28,6 +29,8 @@
     function unreachable() { log.push("unexpected"); }
 </script>
 <script type="module" src="./syntaxerror.js"
-    onerror="unreachable()" onload="log.push(1)"></script>
+    onerror="unreachable()" onload="log.push(1)"
+    onunhandledrejection="unreachable()"></script>
 <script type="module" src="./error-type-1.js"
-    onerror="log.push(2)" onload="unreachable()"></script>
+    onerror="log.push(2)" onload="unreachable()"
+    onunhandledrejection="unreachable()"></script>

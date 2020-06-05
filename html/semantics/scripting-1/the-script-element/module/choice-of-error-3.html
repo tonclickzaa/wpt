@@ -9,6 +9,7 @@
     window.log = [];
 
     window.addEventListener("error", ev => log.push(ev.error));
+    window.addEventListener("onunhandledrejection", unreachable);
 
     const test_load = async_test(
         "Evaluation errors are cached in intermediate module scripts");
@@ -32,6 +33,8 @@
     function unreachable() { log.push("unexpected"); }
 </script>
 <script type="module" src="./choice-of-error-3a.js"
-    onerror="unreachable()" onload="log.push(1)"></script>
+    onerror="unreachable()" onload="log.push(1)"
+    onunhandledrejection="unreachable()"></script>
 <script type="module" src="./choice-of-error-3b.js"
-    onerror="unreachable()" onload="log.push(2)"></script>
+    onerror="unreachable()" onload="log.push(2)"
+    onunhandledrejection="unreachable()"></script>

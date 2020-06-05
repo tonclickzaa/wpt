@@ -9,6 +9,7 @@
     window.log = [];
 
     window.addEventListener("error", ev => log.push(ev.error));
+    window.addEventListener("onunhandledrejection", unreachable);
 
     const test_load = async_test(
         "parse error has higher priority than instantiation error");
@@ -29,6 +30,8 @@
     function unreachable() { log.push("unexpected"); }
 </script>
 <script type="module" src="./instantiation-error-1.js"
-    onerror="unreachable()" onload="log.push(1)"></script>
+    onerror="unreachable()" onload="log.push(1)"
+    onunhandledrejection="unreachable()"></script>
 <script type="module" src="./error-type-2.js"
-    onerror="unreachable()" onload="log.push(2)"></script>
+    onerror="unreachable()" onload="log.push(2)"
+    onunhandledrejection="unreachable()"></script>
