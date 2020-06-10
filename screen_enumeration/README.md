@@ -16,6 +16,7 @@ The `ScreenEnumerationTest` interface is defined as:
     setId(internalId, primaryId); // Set primary screen and internal screen IDs.
     setSuccess(success); // Set boolean to validate getDisplays() returned values.
     addDisplay(display); // Push display to the display vector.
+    deleteDisplay(display); // remove display from the display vector.
     async getDisplays(); // Interceptor of getDisplays (screen_enumeration.mojom).
   };
 ```

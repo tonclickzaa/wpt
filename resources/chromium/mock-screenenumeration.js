@@ -33,6 +33,10 @@ var ScreenEnumerationTest = (() => {
       this.displays_.push(display);
     }
 
+    deleteDisplay(id) {
+      this.displays_.splice(id,1);
+    }
+
     async getDisplays() {
       return Promise.resolve({
         displays: this.displays_,
