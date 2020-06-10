@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<title>transform-box: fill-box (CSS layout)</title>
+<link rel="match" href="./reference/cssbox-ref.html">
+<link rel="help" href="https://drafts.csswg.org/css-transforms-1/#transform-box">
+
+<style>
+#target {
+    width: 150px;
+    height: 200px;
+    margin-left: 300px;
+    margin-top: 100px;
+    background-color: green;
+    border-left: solid 50px black;
+
+    transform: rotate(90deg);
+    transform-origin: -50px 0;
+    transform-box: fill-box;
+}
+</style>
+
+<div id="target"></div>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<title>transform-box: initial (SVG layout)</title>
+<link rel="match" href="./reference/svgbox-ref.html">
+<link rel="help" href="https://drafts.csswg.org/css-transforms-1/#transform-box">
+
+<style>
+#target {
+  fill: green;
+  stroke: black;
+  stroke-width: 50;
+  transform-origin: 200px 100px;
+  transform: rotate(90deg);
+}
+</style>
+
+<svg width="400" height="300">
+    <path id="target" d="M 200 100 v 100 h 100 v -100"/>
+</svg>
